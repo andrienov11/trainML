@@ -1,0 +1,15 @@
+streamlit
+pandas
+numpy
+tempfile
+os
+json
+zipfile
+joblib
+matplotlib.pyplot
+plotly.graph_objects
+sklearn.model_selection
+sklearn.preprocessing
+sklearn.metrics
+tensorflow.keras.models
+tensorflow.keras.layers
