@@ -276,7 +276,7 @@ if menu == "Training Model":
         st.subheader("Activation Function")
 
         activation_function = st.selectbox(
-        "Pilih Activation Function",
+        "Select Activation Function",
                [
                  "relu",
                  "sigmoid",
