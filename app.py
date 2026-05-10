@@ -622,7 +622,7 @@ if menu == "Training Model":
 
             with col5:
                 st.metric(
-                    "MAPE (%)",
+                    "Mean Absolute Percentage Error (MAPE)",
                     f"{mape:.2f}%"
                 )
             
