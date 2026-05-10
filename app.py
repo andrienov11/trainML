@@ -444,6 +444,7 @@ if menu == "Training Model":
                 visible=False
             ),
 
+            dragmode=False,
             height=500
         )
 
@@ -453,7 +454,15 @@ if menu == "Training Model":
 
         st.plotly_chart(
             fig,
-            use_container_width=True
+            use_container_width=True,
+
+            config={
+
+                "scrollZoom": False,   # disable zoom scroll
+                "doubleClick": False,  # disable double click zoom
+                "displayModeBar": False, # hide toolbar
+                "staticPlot": True     # make chart static
+            }
         )
 
         # =================================================
