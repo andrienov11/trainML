@@ -94,17 +94,23 @@ if "menu" not in st.session_state:
     st.session_state.menu = "Training Model"
 
 # =========================================================
-# MENU BUTTONS
+# CENTER BUTTONS
 # =========================================================
 
-if st.sidebar.button("Training Model"):
-    st.session_state.menu = "Training Model"
+with st.sidebar:
 
-if st.sidebar.button("Testing Model"):
-    st.session_state.menu = "Testing Model"
-    
-if st.sidebar.button("How to Use"):
-    st.session_state.menu = "How to Use"
+    col1, col2, col3 = st.columns([1,3,1])
+
+    with col2:
+
+        if st.button("Training Model"):
+            st.session_state.menu = "Training Model"
+
+        if st.button("Testing Model"):
+            st.session_state.menu = "Testing Model"
+
+        if st.button("How to Use"):
+            st.session_state.menu = "How to Use"
 
 menu = st.session_state.menu
 
