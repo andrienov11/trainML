@@ -41,15 +41,15 @@ st.markdown("""
 
 /* Menu button */
 div.stButton > button {
-    width: 100%;
+    width: 220px;
     height: 55px;
-    border-radius: 12px;
+    border-radius: 15px;
     border: none;
-    background-color: #1F2937;
+    background-color: #16213E;
     color: white;
     font-size: 18px;
     font-weight: bold;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     transition: 0.3s;
 }
 
