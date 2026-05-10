@@ -1024,138 +1024,132 @@ if menu == "How to Use":
 
    # st.header("How to Use")
 
-    # =====================================================
+    # =========================================================
     # STYLE
-    # =====================================================
+    # =========================================================
 
     st.markdown("""
     <style>
 
-    .guide-card {
-        background-color: #111827;
-        padding: 25px;
-        border-radius: 15px;
-        margin-bottom: 20px;
-        border: 1px solid #374151;
-    }
-
-    .guide-title {
-        font-size: 24px;
-        font-weight: bold;
-        color: #60A5FA;
-        margin-bottom: 15px;
-    }
-
-    .guide-text {
-        font-size: 16px;
-        color: #E5E7EB;
-        line-height: 1.8;
-    }
-
-    .step-box {
-        background-color: #1F2937;
-        padding: 15px;
-        border-radius: 12px;
-        margin-bottom: 15px;
-        border-left: 5px solid #2563EB;
-    }
-
     .step-title {
-        font-size: 18px;
+
+        font-size: 22px;
+
         font-weight: bold;
-        color: white;
+
+        color: #60A5FA;
+
+        margin-top: 20px;
+
+        margin-bottom: 3px;
     }
 
     .step-desc {
+
+        font-size: 16px;
+
         color: #D1D5DB;
-        margin-top: 5px;
-        line-height: 1.6;
+
+        margin-bottom: 3px;
+
+        line-height: 1.7;
     }
 
     </style>
     """, unsafe_allow_html=True)
+    
 
-
-    # =====================================================
-    # TRAINING GUIDE
-    # =====================================================
-
+    # =========================================================
+    # TRAINING STEPS
+    # =========================================================
+    
     st.subheader("How to Train")
 
     training_steps = [
 
         (
-            "1. Upload Dataset",
+            "Upload Dataset",
             "Upload the dataset file in CSV or XLSX format."
         ),
 
         (
-            "2. Select Variables",
+            "Select Variables",
             "Select input and output variables from the dataset."
         ),
 
         (
-            "3. Configure Hidden Layers",
-            "Specify the number of hidden layers and the number of nodes in each layer."
+            "Configure Hidden Layers",
+            "Specify the number of hidden layers and nodes in each layer."
         ),
 
         (
-            "4. Training Model",
-            "Click the Train Model button to start training."
+            "Train Model",
+            "Click the Train Model button to start ANN training."
         ),
 
         (
-            "5. Download Model ZIP",
+            "Download Model ZIP",
             "Download the ZIP file of the trained model."
         )
 
     ]
+    
+    # =========================================================
+    # DISPLAY
+    # =========================================================
 
-    for title, desc in training_steps:
+    for i, (title, desc) in enumerate(training_steps, start=1):
 
-        st.markdown(f"""
-        <div class="step-box">
-            
-                {title}
-                        
-                {desc}
-            
-        
-        """, unsafe_allow_html=True)
+        st.markdown(
+            f'<div class="step-title">Step {i} - {title}</div>',
+            unsafe_allow_html=True
+        )
+
+        st.markdown(
+            f'<div class="step-desc">{desc}</div>',
+            unsafe_allow_html=True
+        )
 
     # =====================================================
     # TESTING GUIDE
     # =====================================================
+
+    st.markdown("<br>", unsafe_allow_html=True)
 
     st.subheader("How to Test")
 
     testing_steps = [
 
         (
-            "1. Upload Model ZIP",
+            "Upload Model ZIP",
             "Upload the ZIP file of the model training results."
         ),
 
         (
-            "2. Input Data",
+            "Input Data",
             "Enter the input values ​​according to the model variables."
         ),
 
         (
-            "3. Click Predict",
+            "Click Predict",
             "The system will generate the prediction output."
         )
 
     ]
 
-    for title, desc in testing_steps:
+    # =========================================================
+    # DISPLAY
+    # =========================================================
 
-        st.markdown(f"""
-        <div class="step-box">
+    for i, (title, desc) in enumerate(testing_steps, start=1):
 
-                {title}
-  
-                {desc}
-           
-        """, unsafe_allow_html=True)
+        st.markdown(
+            f'<div class="step-title">Step {i} - {title}</div>',
+            unsafe_allow_html=True
+        )
+
+        st.markdown(
+            f'<div class="step-desc">{desc}</div>',
+            unsafe_allow_html=True
+        )
 
