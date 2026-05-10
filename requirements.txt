@@ -1,5 +1,5 @@
 streamlit
-tensorflow-cpu
+tensorflow-cpu==2.13.0
 pandas
 numpy
 scikit-learn
@@ -7,3 +7,4 @@ plotly
 matplotlib
 openpyxl
 joblib
+h5py
