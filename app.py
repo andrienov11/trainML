@@ -25,53 +25,123 @@ from tensorflow.keras.layers import Dense
 st.markdown("""
 <style>
 
-/* Sidebar */
+/* =====================================================
+SIDEBAR
+===================================================== */
+
 [data-testid="stSidebar"] {
-    background-color: #111827;
+
+    background: linear-gradient(
+        180deg,
+        #071026,
+        #0B1437
+    );
+
+    padding-top: 20px;
 }
 
-/* Sidebar title */
+/* =====================================================
+SIDEBAR TITLE
+===================================================== */
+
 .sidebar-title {
-    font-size: 28px;
+
+    font-size: 34px;
     font-weight: bold;
+
     color: white;
+
     text-align: center;
-    margin-bottom: 30px;
+
+    margin-bottom: 40px;
 }
 
-/* Menu button */
+/* =====================================================
+CENTER BUTTON CONTAINER
+===================================================== */
+
+div.stButton {
+
+    display: flex;
+    justify-content: center;
+}
+
+/* =====================================================
+BUTTON STYLE
+===================================================== */
+
 div.stButton > button {
+
     width: 220px;
-    height: 55px;
-    border-radius: 15px;
+    height: 60px;
+
+    border-radius: 18px;
+
     border: none;
-    background-color: #16213E;
+
+    background: linear-gradient(
+        135deg,
+        #16213E,
+        #1E3A8A
+    );
+
     color: white;
+
     font-size: 18px;
     font-weight: bold;
-    margin-bottom: 20px;
-    transition: 0.3s;
+
+    margin-bottom: 18px;
+
+    transition: all 0.3s ease;
+
+    box-shadow: 0px 4px 15px rgba(0,0,0,0.3);
 }
 
-/* Hover effect */
+/* =====================================================
+BUTTON HOVER
+===================================================== */
+
 div.stButton > button:hover {
-    background-color: #2563EB;
+
+    background: linear-gradient(
+        135deg,
+        #2563EB,
+        #3B82F6
+    );
+
+    transform: translateY(-3px);
+
     color: white;
-    transform: scale(1.03);
+
+    box-shadow: 0px 8px 20px rgba(37,99,235,0.4);
 }
 
-/* Main title */
+/* =====================================================
+MAIN TITLE
+===================================================== */
+
 .main-title {
+
     font-size: 42px;
+
     font-weight: bold;
+
     color: #2563EB;
+
+    margin-bottom: 5px;
 }
 
-/* Subtitle */
+/* =====================================================
+SUBTITLE
+===================================================== */
+
 .subtitle {
+
     font-size: 18px;
+
     color: #9CA3AF;
-    margin-bottom: 20px;
+
+    margin-bottom: 25px;
 }
 
 </style>
