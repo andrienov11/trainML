@@ -54,38 +54,56 @@ st.markdown("""
     margin-bottom: 40px;
 }
 
-div.stButton {
-    display: flex;
-    justify-content: center;
+/* Sidebar button wrapper */
+[data-testid="stSidebar"] div.stButton {
+    display: flex !important;
+    justify-content: center !important;
+    width: 100% !important;
 }
 
-div.stButton > button {
-    width: 100%;
-    height: 65px;
-    white-space: nowrap;
-    border-radius: 18px;
-    border: none;
-    background: linear-gradient(135deg, #16213E, #1E3A8A);
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    margin-bottom: 18px;
-    transition: all 0.3s ease;
-    box-shadow: 0px 4px 15px rgba(0,0,0,0.3);
+/* Sidebar button */
+[data-testid="stSidebar"] div.stButton > button {
+    width: 85% !important;
+    min-width: 180px !important;
+    height: 64px !important;
+
+    margin-left: auto !important;
+    margin-right: auto !important;
+    margin-bottom: 18px !important;
+
+    border-radius: 18px !important;
+    border: none !important;
+
+    background: linear-gradient(135deg, #16213E, #1E3A8A) !important;
+    color: white !important;
+
+    font-size: 16px !important;
+    font-weight: 700 !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    text-align: center !important;
+    white-space: nowrap !important;
+
+    box-shadow: 0px 4px 15px rgba(0,0,0,0.3) !important;
 }
 
-div.stButton > button:hover {
-    background: linear-gradient(135deg, #2563EB, #3B82F6);
+/* Hover */
+[data-testid="stSidebar"] div.stButton > button:hover {
+    background: linear-gradient(135deg, #2563EB, #3B82F6) !important;
     transform: translateY(-3px);
-    color: white;
-    box-shadow: 0px 8px 20px rgba(37,99,235,0.4);
+    color: white !important;
 }
 
-.main-title {
-    font-size: 42px;
+/* Sidebar title */
+.sidebar-title {
+    font-size: 34px;
     font-weight: bold;
-    color: #2563EB;
-    margin-bottom: 5px;
+    color: white;
+    text-align: center;
+    margin-bottom: 40px;
 }
 
 .subtitle {
@@ -267,18 +285,23 @@ st.sidebar.markdown(
 
 with st.sidebar:
 
-    if st.button("Train Model"):
+    st.markdown(
+        '<div class="sidebar-title">Menu</div>',
+        unsafe_allow_html=True
+    )
+
+    if st.button("Train Model", use_container_width=True):
         st.session_state.menu = "Train Model"
 
-    if st.button("Deploy Model"):
+    if st.button("Deploy Model", use_container_width=True):
         st.session_state.menu = "Deploy Model"
 
-    if st.button("How to Use"):
+    if st.button("How to Use", use_container_width=True):
         st.session_state.menu = "How to Use"
 
     st.markdown("---")
 
-    if st.button("Reset Application"):
+    if st.button("Reset Application", use_container_width=True):
         for key in list(st.session_state.keys()):
             del st.session_state[key]
         st.rerun()
