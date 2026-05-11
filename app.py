@@ -278,10 +278,6 @@ for key, value in default_states.items():
 # SIDEBAR
 # =========================================================
 
-st.sidebar.markdown(
-    '<div class="sidebar-title">Menu</div>',
-    unsafe_allow_html=True
-)
 
 with st.sidebar:
 
