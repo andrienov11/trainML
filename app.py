@@ -51,7 +51,7 @@ st.markdown("""
 }
 
 .block-container {
-    padding-top: 3rem !important;
+    padding-top: 4rem !important;
 }
 
 [data-testid="stSidebar"] {
