@@ -550,7 +550,9 @@ def show_trained_model_test():
 
                 test_inputs.append(value)
 
-        if st.button("Predict"):
+        predict_clicked = st.button("Predict Now", use_container_width=True)
+
+        if predict_clicked:
 
             X_user = np.array([test_inputs])
             X_scaled_user = st.session_state.scaler_x.transform(X_user)
@@ -643,8 +645,8 @@ if menu == "Train Model":
                 default=valid_output_defaults
             )
 
-            apply_selection = st.form_submit_button("Apply Selection")
-
+            apply_selection = st.form_submit_button("Apply Selection", use_container_width=True)
+            
         if apply_selection:
 
             st.session_state.input_cols = input_cols_temp
@@ -740,7 +742,7 @@ if menu == "Train Model":
                 len(st.session_state.output_cols)
             )
 
-        train_clicked = st.button("Train Now",use_container_width=True)
+        train_clicked = st.button("Train Now", use_container_width=True)
         
         if train_clicked:
 
@@ -1005,7 +1007,8 @@ python predict.py
             label="Download Model Package ZIP",
             data=st.session_state.zip_data,
             file_name="model_package.zip",
-            mime="application/zip"
+            mime="application/zip",
+            use_container_width=True
         )
 
 
