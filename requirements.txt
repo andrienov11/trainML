@@ -8,7 +8,4 @@ matplotlib
 openpyxl
 joblib
 h5py
-<<<<<<< HEAD
 io
-=======
->>>>>>> 649a27bb3e04eb5c2478f64c2260705e14913bc3

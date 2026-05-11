@@ -34,7 +34,6 @@ st.set_page_config(
 st.markdown("""
 <style>
 
-<<<<<<< HEAD
 .block-container {
     max-width: 1100px;
     padding-top: 2rem;
@@ -49,36 +48,10 @@ st.markdown("""
 }
 
 .sidebar-title {
-=======
-/* =====================================================
-SIDEBAR
-===================================================== */
-
-[data-testid="stSidebar"] {
-
-    background: linear-gradient(
-        180deg,
-        #071026,
-        #0B1437
-    );
-
-    padding-top: 20px;
-}
-
-/* =====================================================
-SIDEBAR TITLE
-===================================================== */
-
-.sidebar-title {
-
->>>>>>> 649a27bb3e04eb5c2478f64c2260705e14913bc3
     font-size: 34px;
     font-weight: bold;
-
     color: white;
-
     text-align: center;
-<<<<<<< HEAD
     margin-bottom: 40px;
 }
 
@@ -109,103 +82,16 @@ div.stButton > button:hover {
     box-shadow: 0px 8px 20px rgba(37,99,235,0.4);
 }
 
-=======
-
-    margin-bottom: 40px;
-}
-
-/* =====================================================
-CENTER BUTTON CONTAINER
-===================================================== */
-
-div.stButton {
-
-    display: flex;
-    justify-content: center;
-}
-
-/* =====================================================
-BUTTON STYLE
-===================================================== */
-
-div.stButton > button {
-
-    width: 220px;
-    height: 60px;
-
-    border-radius: 18px;
-
-    border: none;
-
-    background: linear-gradient(
-        135deg,
-        #16213E,
-        #1E3A8A
-    );
-
-    color: white;
-
-    font-size: 18px;
-    font-weight: bold;
-
-    margin-bottom: 18px;
-
-    transition: all 0.3s ease;
-
-    box-shadow: 0px 4px 15px rgba(0,0,0,0.3);
-}
-
-/* =====================================================
-BUTTON HOVER
-===================================================== */
-
-div.stButton > button:hover {
-
-    background: linear-gradient(
-        135deg,
-        #2563EB,
-        #3B82F6
-    );
-
-    transform: translateY(-3px);
-
-    color: white;
-
-    box-shadow: 0px 8px 20px rgba(37,99,235,0.4);
-}
-
-/* =====================================================
-MAIN TITLE
-===================================================== */
-
->>>>>>> 649a27bb3e04eb5c2478f64c2260705e14913bc3
 .main-title {
-
     font-size: 42px;
-
     font-weight: bold;
-
     color: #2563EB;
-<<<<<<< HEAD
     margin-bottom: 5px;
 }
 
-=======
-
-    margin-bottom: 5px;
-}
-
-/* =====================================================
-SUBTITLE
-===================================================== */
-
->>>>>>> 649a27bb3e04eb5c2478f64c2260705e14913bc3
 .subtitle {
-
     font-size: 18px;
-
     color: #9CA3AF;
-<<<<<<< HEAD
     margin-bottom: 25px;
 }
 
@@ -238,10 +124,6 @@ SUBTITLE
     text-align: center;
     border: 1px solid #374151;
     margin-bottom: 20px;
-=======
-
-    margin-bottom: 25px;
->>>>>>> 649a27bb3e04eb5c2478f64c2260705e14913bc3
 }
 
 .metric-value {
@@ -435,7 +317,6 @@ with st.sidebar:
     if st.button("Train Model"):
         st.session_state.menu = "Train Model"
 
-<<<<<<< HEAD
     if st.button("Deploy Model"):
         st.session_state.menu = "Deploy Model"
 
@@ -448,26 +329,6 @@ with st.sidebar:
         for key in list(st.session_state.keys()):
             del st.session_state[key]
         st.rerun()
-=======
-# =========================================================
-# CENTER BUTTONS
-# =========================================================
-
-with st.sidebar:
-
-    col1, col2, col3 = st.columns([1,3,1])
-
-    with col2:
-
-        if st.button("Training Model"):
-            st.session_state.menu = "Training Model"
-
-        if st.button("Testing Model"):
-            st.session_state.menu = "Testing Model"
-
-        if st.button("How to Use"):
-            st.session_state.menu = "How to Use"
->>>>>>> 649a27bb3e04eb5c2478f64c2260705e14913bc3
 
 menu = st.session_state.menu
 
@@ -851,7 +712,6 @@ if menu == "Train Model":
 
         st.subheader("Activation Function")
 
-<<<<<<< HEAD
         activation_options = [
             "relu",
             "sigmoid",
@@ -861,20 +721,6 @@ if menu == "Train Model":
             "elu",
             "selu"
         ]
-=======
-        activation_function = st.selectbox(
-        "Select Activation Function",
-               [
-                 "relu",
-                 "sigmoid",
-                 "tanh",
-                 "linear",
-                 "softmax",
-                 "elu",
-                 "selu"
-                ]
-           )
->>>>>>> 649a27bb3e04eb5c2478f64c2260705e14913bc3
 
         activation_index = activation_options.index(
             st.session_state.activation_function
@@ -919,120 +765,7 @@ if menu == "Train Model":
                 len(st.session_state.output_cols)
             )
 
-<<<<<<< HEAD
         if st.button("Train Now"):
-=======
-                    edge_x += [x1, x2, None]
-                    edge_y += [y1, y2, None]
-
-        # =============================================
-        # EDGE TRACE
-        # =============================================
-
-        edge_trace = go.Scatter(
-
-            x=edge_x,
-            y=edge_y,
-
-            mode='lines',
-
-            line=dict(
-                width=1,
-                color='gray'
-            ),
-
-            hoverinfo='none'
-        )
-
-        # =============================================
-        # NODE TRACE
-        # =============================================
-
-        node_trace = go.Scatter(
-
-            x=node_x,
-            y=node_y,
-
-            mode='markers',
-
-            marker=dict(
-
-                size=24,
-
-                color='royalblue',
-
-                line=dict(
-                    width=2,
-                    color='white'
-                )
-            ),
-
-            hoverinfo='none'
-        )
-
-        # =============================================
-        # FIGURE
-        # =============================================
-
-        fig = go.Figure(
-            data=[edge_trace, node_trace]
-        )
-
-        fig.update_layout(
-
-            showlegend=False,
-
-            plot_bgcolor='#0E1117',
-            paper_bgcolor='#0E1117',
-
-            margin=dict(
-                l=20,
-                r=20,
-                t=20,
-                b=20
-            ),
-
-            xaxis=dict(
-                showgrid=False,
-                zeroline=False,
-                visible=False
-            ),
-
-            yaxis=dict(
-                showgrid=False,
-                zeroline=False,
-                visible=False
-            ),
-
-            dragmode=False,
-            height=500
-        )
-
-        # =============================================
-        # SHOW
-        # =============================================
-
-        st.plotly_chart(
-            fig,
-            use_container_width=True,
-
-            config={
-
-                "scrollZoom": False,   # disable zoom scroll
-                "doubleClick": False,  # disable double click zoom
-                "displayModeBar": False, # hide toolbar
-                "staticPlot": True     # make chart static
-            }
-        )
-
-        # =================================================
-        # TRAIN BUTTON
-        # =================================================
-
-        if st.button("Train Model"):
-
-            if len(input_cols) == 0:
->>>>>>> 649a27bb3e04eb5c2478f64c2260705e14913bc3
 
             if len(st.session_state.input_cols) == 0:
                 st.error("Select at least 1 input")
@@ -1155,71 +888,6 @@ if menu == "Train Model":
                 np.abs((y_test - y_pred) / (y_test + 1e-10))
             ) * 100
 
-<<<<<<< HEAD
-=======
-            # =============================================
-            # SHOW RESULT
-            # =============================================
-
-            st.subheader("Model Evaluation")
-
-            col1, col2, col3 = st.columns(3)
-
-            with col1:
-                st.metric(
-                    "Mean Squared Error (MSE)",
-                    f"{mse:.6f}"
-                )
-
-            with col2:
-                st.metric(
-                    "Root Mean Squared Error (RMSE)",
-                    f"{rmse:.6f}"
-                )
-
-            with col3:
-                st.metric(
-                    "Mean Absolute Error (MAE)",
-                    f"{mae:.6f}"
-                )
-
-            col4, col5, col6 = st.columns(3)
-
-            with col4:
-                st.metric(
-                    "R² Score",
-                    f"{r2:.6f}"
-                )
-
-            with col5:
-                st.metric(
-                    "Mean Absolute Percentage Error (MAPE)",
-                    f"{mape:.2f}%"
-                )
-            
-            with col6:
-                st.metric(
-                    " ", " "
-                )
-
-            # =============================================
-            # TRAINING GRAPH
-            # =============================================
-
-            st.subheader("Training Graph")
-
-            history_df = pd.DataFrame(history.history)
-
-            st.line_chart(
-                history_df[['loss', 'val_loss']]
-            )
-
-            
-            # =============================================
-            # SAVE TEMP DIRECTORY
-            # =============================================
-
->>>>>>> 649a27bb3e04eb5c2478f64c2260705e14913bc3
             temp_dir = tempfile.mkdtemp()
 
             model_path = os.path.join(temp_dir, "model.h5")
@@ -1621,7 +1289,6 @@ if menu == "Deploy Model":
 
 if menu == "How to Use":
 
-<<<<<<< HEAD
     st.subheader("How to Train")
 
     training_steps = [
@@ -1630,122 +1297,13 @@ if menu == "How to Use":
         ("Configure Hidden Layers", "Specify the number of hidden layers and nodes in each layer."),
         ("Train Model", "Click the Train Model button to start ANN training."),
         ("Download Model ZIP", "Download the ZIP file of the trained model.")
-=======
-   # st.header("How to Use")
-
-    # =========================================================
-    # STYLE
-    # =========================================================
-
-    st.markdown("""
-    <style>
-
-    .step-title {
-
-        font-size: 22px;
-
-        font-weight: bold;
-
-        color: #60A5FA;
-
-        margin-top: 20px;
-
-        margin-bottom: 3px;
-    }
-
-    .step-desc {
-
-        font-size: 16px;
-
-        color: #D1D5DB;
-
-        margin-bottom: 3px;
-
-        line-height: 1.7;
-    }
-
-    </style>
-    """, unsafe_allow_html=True)
-    
-
-    # =========================================================
-    # TRAINING STEPS
-    # =========================================================
-    
-    st.subheader("How to Train")
-
-    training_steps = [
-
-        (
-            "Upload Dataset",
-            "Upload the dataset file in CSV or XLSX format."
-        ),
-
-        (
-            "Select Variables",
-            "Select input and output variables from the dataset."
-        ),
-
-        (
-            "Configure Hidden Layers",
-            "Specify the number of hidden layers and nodes in each layer."
-        ),
-
-        (
-            "Train Model",
-            "Click the Train Model button to start ANN training."
-        ),
-
-        (
-            "Download Model ZIP",
-            "Download the ZIP file of the trained model."
-        )
-
->>>>>>> 649a27bb3e04eb5c2478f64c2260705e14913bc3
     ]
-    
-    # =========================================================
-    # DISPLAY
-    # =========================================================
 
     for i, (title, desc) in enumerate(training_steps, start=1):
 
         st.markdown(
             f'<div class="step-title">Step {i} - {title}</div>',
             unsafe_allow_html=True
-<<<<<<< HEAD
-=======
-        )
-
-        st.markdown(
-            f'<div class="step-desc">{desc}</div>',
-            unsafe_allow_html=True
-        )
-
-    # =====================================================
-    # TESTING GUIDE
-    # =====================================================
-
-    st.markdown("<br>", unsafe_allow_html=True)
-
-    st.subheader("How to Test")
-
-    testing_steps = [
-
-        (
-            "Upload Model ZIP",
-            "Upload the ZIP file of the model training results."
-        ),
-
-        (
-            "Input Data",
-            "Enter the input values ​​according to the model variables."
-        ),
-
-        (
-            "Click Predict",
-            "The system will generate the prediction output."
->>>>>>> 649a27bb3e04eb5c2478f64c2260705e14913bc3
         )
 
         st.markdown(
@@ -1765,7 +1323,6 @@ if menu == "How to Use":
         ("Download Result", "Download hasil prediksi dalam format CSV.")
     ]
 
-<<<<<<< HEAD
     for i, (title, desc) in enumerate(deploy_steps, start=1):
 
         st.markdown(
@@ -1774,20 +1331,6 @@ if menu == "How to Use":
         )
 
         st.markdown(
-=======
-    # =========================================================
-    # DISPLAY
-    # =========================================================
-
-    for i, (title, desc) in enumerate(testing_steps, start=1):
-
-        st.markdown(
-            f'<div class="step-title">Step {i} - {title}</div>',
-            unsafe_allow_html=True
-        )
-
-        st.markdown(
->>>>>>> 649a27bb3e04eb5c2478f64c2260705e14913bc3
             f'<div class="step-desc">{desc}</div>',
             unsafe_allow_html=True
         )
