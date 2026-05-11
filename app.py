@@ -88,6 +88,9 @@ st.markdown("""
     margin-right: auto !important;
     margin-bottom: 18px !important;
 
+    width: 320px !important;
+    height: 60px !important;
+
     border-radius: 18px !important;
     border: none !important;
 
