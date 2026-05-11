@@ -1187,7 +1187,7 @@ if menu == "Deploy Model":
 
     else:
 
-        st.info("Upload the Model Package ZIP and prediction data first.")
+        st.info("Upload the Model Package ZIP and prediction data.")
 
 
 # =========================================================
