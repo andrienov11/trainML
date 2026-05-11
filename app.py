@@ -244,94 +244,6 @@ li[aria-selected="true"] {
     font-weight: bold !important;
 }
 
-/* =========================================================
-REMOVE FILE PREVIEW CARD
-========================================================= */
-
-/* Outer uploaded file container */
-[data-testid="stFileUploaderFile"] {
-
-    background-color: transparent !important;
-
-    border: none !important;
-
-    box-shadow: none !important;
-
-    padding: 0px !important;
-
-    margin: 0px !important;
-}
-
-/* Inner container */
-[data-testid="stFileUploaderFileData"] {
-
-    background: transparent !important;
-
-    border: none !important;
-
-    padding: 0px !important;
-}
-
-/* Entire file row */
-[data-testid="stFileUploadDropzone"] + div {
-
-    background: transparent !important;
-
-    border: none !important;
-
-    box-shadow: none !important;
-}
-
-/* Remove blue card */
-section[data-testid="stFileUploader"] ul {
-
-    background: transparent !important;
-
-    border: none !important;
-
-    padding: 0px !important;
-
-    margin-top: 10px !important;
-}
-
-/* Each list item */
-section[data-testid="stFileUploader"] li {
-
-    background: transparent !important;
-
-    border: none !important;
-
-    box-shadow: none !important;
-}
-
-/* Filename */
-[data-testid="stFileUploaderFileName"] {
-
-    color: white !important;
-
-    font-size: 15px !important;
-
-    font-weight: 600 !important;
-}
-
-/* File size */
-[data-testid="stFileUploaderFileSize"] {
-
-    color: #9CA3AF !important;
-}
-
-/* Delete button */
-[data-testid="stFileUploaderDeleteBtn"] {
-
-    background: transparent !important;
-
-    border: none !important;
-}
-
-section[data-testid="stFileUploader"] div {
-    background: transparent !important;
-}
-
 </style>
 """, unsafe_allow_html=True)
 
@@ -685,14 +597,18 @@ if menu == "Train Model":
     )
 
     if uploaded_file is not None:
-
-        if uploaded_file.name.endswith(".csv"):
-            df = pd.read_csv(uploaded_file)
-        else:
-            df = pd.read_excel(uploaded_file)
-
-        st.session_state.dataset_df = df
-        st.session_state.dataset_name = uploaded_file.name
+    
+        with st.spinner("Loading dataset..."):
+    
+            if uploaded_file.name.endswith(".csv"):
+                df = pd.read_csv(uploaded_file)
+            else:
+                df = pd.read_excel(uploaded_file)
+    
+            st.session_state.dataset_df = df
+            st.session_state.dataset_name = uploaded_file.name
+    
+        st.success("Dataset loaded successfully")
 
     if st.session_state.dataset_df is not None:
 
