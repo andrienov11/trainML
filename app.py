@@ -241,6 +241,56 @@ li[aria-selected="true"] {
     font-weight: bold !important;
 }
 
+/* =========================================================
+TRAIN BUTTON
+========================================================= */
+
+div[data-testid="stButton"] > button[kind="secondary"] {
+
+    width: 320px !important;
+
+    height: 60px !important;
+
+    margin-left: auto !important;
+    margin-right: auto !important;
+
+    display: block !important;
+
+    border-radius: 18px !important;
+
+    border: none !important;
+
+    background: linear-gradient(
+        135deg,
+        #2563EB,
+        #3B82F6
+    ) !important;
+
+    color: white !important;
+
+    font-size: 18px !important;
+
+    font-weight: 700 !important;
+
+    box-shadow: 0px 6px 20px rgba(37,99,235,0.35) !important;
+
+    transition: all 0.3s ease !important;
+}
+
+/* Hover */
+div[data-testid="stButton"] > button[kind="secondary"]:hover {
+
+    transform: translateY(-3px);
+
+    background: linear-gradient(
+        135deg,
+        #1D4ED8,
+        #2563EB
+    ) !important;
+
+    color: white !important;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -737,7 +787,12 @@ if menu == "Train Model":
                 len(st.session_state.output_cols)
             )
 
-        if st.button("Train Now"):
+        train_clicked = st.button(
+            "Train Now",
+            use_container_width=False
+        )
+        
+        if train_clicked:
 
             if len(st.session_state.input_cols) == 0:
                 st.error("Select at least 1 input")
