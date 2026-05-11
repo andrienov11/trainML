@@ -8,13 +8,12 @@ import zipfile
 import joblib
 import plotly.graph_objects as go
 
+from io import BytesIO
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
-
 from tensorflow.keras.models import Sequential, load_model
 from tensorflow.keras.layers import Dense
-from io import BytesIO
 
 
 # =========================================================
@@ -152,110 +151,60 @@ div.stButton > button:hover {
     line-height: 1.7;
 }
 
-/* =========================================================
-REMOVE FILE UPLOADER BOX
-========================================================= */
-
-/* Uploaded file container */
+/* File uploader */
 [data-testid="stFileUploaderFile"] {
-
     background: transparent !important;
-
     border: none !important;
-
     box-shadow: none !important;
-
     padding: 0px !important;
 }
 
-/* Remove outer border */
 [data-testid="stFileUploader"] section {
-
     border: none !important;
 }
 
-/* Remove uploaded file card */
 [data-testid="stFileUploaderFileData"] {
-
     background: transparent !important;
-
     border: none !important;
 }
 
-/* Remove hover effect */
 [data-testid="stFileUploaderFile"]:hover {
-
     background: transparent !important;
 }
 
-/* File name */
 [data-testid="stFileUploaderFileName"] {
-
     color: white !important;
-
     font-weight: 500 !important;
 }
 
-/* =========================================================
-POPUP MENU
-========================================================= */
-
+/* Dropdown popup */
 ul {
-
     background-color: #192e47 !important;
-
     border-radius: 12px !important;
-
     border: 1px solid #CBD5E1 !important;
-
     padding-top: 5px !important;
-
     padding-bottom: 5px !important;
 }
 
-/* =========================================================
-MENU ITEM
-========================================================= */
-
 li {
-
     background-color: #192e47 !important;
-
-    color: white  !important;
-
+    color: white !important;
     font-size: 16px !important;
-
     font-weight: 500 !important;
-
     padding-top: 10px !important;
-
     padding-bottom: 10px !important;
 }
 
-/* =========================================================
-HOVER ITEM
-========================================================= */
-
 li:hover {
-
     background-color: #2563EB !important;
-
     color: white !important;
 }
 
-/* =========================================================
-SELECTED ITEM
-========================================================= */
-
 li[aria-selected="true"] {
-
     background-color: #DBEAFE !important;
-
     color: #1E3A8A !important;
-
     font-weight: bold !important;
 }
-
 
 </style>
 """, unsafe_allow_html=True)
@@ -269,18 +218,21 @@ default_states = {
     "menu": "Train Model",
     "dataset_df": None,
     "dataset_name": None,
+
     "trained_model_ready": False,
     "prediction_result": None,
-    "uploaded_prediction_result": None,
+
     "model": None,
     "scaler_x": None,
     "scaler_y": None,
+
     "input_cols": [],
     "output_cols": [],
     "hidden_layers": [16, 16],
     "activation_function": "relu",
     "epochs": 100,
     "test_size": 0.2,
+
     "history_df": None,
     "mse": None,
     "mae": None,
@@ -288,6 +240,7 @@ default_states = {
     "r2": None,
     "mape": None,
     "zip_data": None,
+
     "deploy_model_uploaded": False,
     "deploy_prediction_df": None,
     "deploy_result_df": None,
@@ -334,7 +287,7 @@ menu = st.session_state.menu
 
 
 # =========================================================
-# MAIN HEADER
+# HEADER
 # =========================================================
 
 st.markdown(
@@ -349,21 +302,15 @@ st.markdown(
 
 
 # =========================================================
-# FUNCTION: VISUALIZE ANN
+# FUNCTIONS
 # =========================================================
 
 def visualize_ann(input_nodes, hidden_layers, output_nodes):
 
-    layers = [
-        input_nodes,
-        *hidden_layers,
-        output_nodes
-    ]
+    layers = [input_nodes, *hidden_layers, output_nodes]
 
-    node_x = []
-    node_y = []
-    edge_x = []
-    edge_y = []
+    node_x, node_y = [], []
+    edge_x, edge_y = [], []
     positions = []
 
     for i, neurons in enumerate(layers):
@@ -372,7 +319,6 @@ def visualize_ann(input_nodes, hidden_layers, output_nodes):
         y = np.linspace(-neurons / 2, neurons / 2, neurons)
 
         positions.append(list(zip(x, y)))
-
         node_x.extend(x)
         node_y.extend(y)
 
@@ -429,10 +375,6 @@ def visualize_ann(input_nodes, hidden_layers, output_nodes):
         }
     )
 
-
-# =========================================================
-# FUNCTION: SHOW MODEL CONFIG
-# =========================================================
 
 def show_model_config():
 
@@ -506,10 +448,6 @@ def show_model_config():
         """, unsafe_allow_html=True)
 
 
-# =========================================================
-# FUNCTION: SHOW EVALUATION
-# =========================================================
-
 def show_evaluation():
 
     if st.session_state.mse is not None:
@@ -539,10 +477,6 @@ def show_evaluation():
             st.metric("Status", "Trained")
 
 
-# =========================================================
-# FUNCTION: SHOW TRAINING GRAPH
-# =========================================================
-
 def show_training_graph():
 
     if st.session_state.history_df is not None:
@@ -553,10 +487,6 @@ def show_training_graph():
             st.session_state.history_df[["loss", "val_loss"]]
         )
 
-
-# =========================================================
-# FUNCTION: SHOW TRAINED MODEL TEST
-# =========================================================
 
 def show_trained_model_test():
 
@@ -584,11 +514,8 @@ def show_trained_model_test():
         if st.button("Predict"):
 
             X_user = np.array([test_inputs])
-
             X_scaled_user = st.session_state.scaler_x.transform(X_user)
-
             y_scaled_user = st.session_state.model.predict(X_scaled_user)
-
             y_user = st.session_state.scaler_y.inverse_transform(y_scaled_user)
 
             st.session_state.prediction_result = y_user
@@ -614,7 +541,7 @@ def show_trained_model_test():
 
 
 # =========================================================
-# TRAINING MODEL
+# TRAIN MODEL
 # =========================================================
 
 if menu == "Train Model":
@@ -651,24 +578,30 @@ if menu == "Train Model":
 
         columns = df.columns.tolist()
 
-        # =================================================
-        # INPUT OUTPUT SELECTION
-        # =================================================
-
         st.subheader("Select Variables")
+
+        valid_input_defaults = [
+            col for col in st.session_state.input_cols
+            if col in columns
+        ]
+
+        valid_output_defaults = [
+            col for col in st.session_state.output_cols
+            if col in columns
+        ]
 
         with st.form("variable_form"):
 
             input_cols_temp = st.multiselect(
                 "Select Input Variable",
                 columns,
-                default=st.session_state.input_cols
+                default=valid_input_defaults
             )
 
             output_cols_temp = st.multiselect(
                 "Select Output Variable",
                 columns,
-                default=st.session_state.output_cols
+                default=valid_output_defaults
             )
 
             apply_selection = st.form_submit_button("Apply Selection")
@@ -677,6 +610,7 @@ if menu == "Train Model":
 
             st.session_state.input_cols = input_cols_temp
             st.session_state.output_cols = output_cols_temp
+            st.session_state.prediction_result = None
 
             st.success("Variable selection applied")
 
@@ -722,9 +656,11 @@ if menu == "Train Model":
             "selu"
         ]
 
-        activation_index = activation_options.index(
-            st.session_state.activation_function
-        ) if st.session_state.activation_function in activation_options else 0
+        activation_index = (
+            activation_options.index(st.session_state.activation_function)
+            if st.session_state.activation_function in activation_options
+            else 0
+        )
 
         activation_function = st.selectbox(
             "Select Activation Function",
@@ -874,7 +810,6 @@ if menu == "Train Model":
                     history_df[["loss", "val_loss"]]
                 )
 
-
             history_df = pd.DataFrame(history_data)
 
             y_pred = model.predict(X_test)
@@ -905,10 +840,10 @@ if menu == "Train Model":
             joblib.dump(scaler_y, scaler_y_path)
 
             metadata = {
-                "input_variables": input_cols,
-                "output_variables": output_cols,
-                "input_nodes": len(input_cols),
-                "output_nodes": len(output_cols),
+                "input_variables": st.session_state.input_cols,
+                "output_variables": st.session_state.output_cols,
+                "input_nodes": len(st.session_state.input_cols),
+                "output_nodes": len(st.session_state.output_cols),
                 "hidden_layers": hidden_layers,
                 "activation_function": activation_function
             }
@@ -916,7 +851,7 @@ if menu == "Train Model":
             with open(metadata_path, "w") as f:
                 json.dump(metadata, f, indent=4)
 
-            predict_code = f'''import numpy as np
+            predict_code = '''import numpy as np
 import joblib
 from tensorflow.keras.models import load_model
 
@@ -928,14 +863,15 @@ scaler_y = joblib.load("scaler_y.pkl")
 # Change input values below
 '''
 
-            for var in input_cols:
+            for var in st.session_state.input_cols:
                 predict_code += f'{var} = 0.0\n'
 
             predict_code += "\nX = np.array([["
 
-            for i, var in enumerate(input_cols):
+            for i, var in enumerate(st.session_state.input_cols):
                 predict_code += var
-                if i < len(input_cols) - 1:
+
+                if i < len(st.session_state.input_cols) - 1:
                     predict_code += ", "
 
             predict_code += """]])
@@ -949,7 +885,7 @@ y = scaler_y.inverse_transform(y_scaled)
 print("\\nPrediction Result:")
 """
 
-            for i, var in enumerate(output_cols):
+            for i, var in enumerate(st.session_state.output_cols):
                 predict_code += f'print("{var} =", y[0][{i}])\n'
 
             with open(predict_path, "w") as f:
@@ -990,12 +926,12 @@ python predict.py
             st.session_state.model = model
             st.session_state.scaler_x = scaler_x
             st.session_state.scaler_y = scaler_y
-            st.session_state.input_cols = input_cols
-            st.session_state.output_cols = output_cols
+
             st.session_state.hidden_layers = hidden_layers
             st.session_state.activation_function = activation_function
             st.session_state.epochs = epochs
             st.session_state.test_size = test_size
+
             st.session_state.history_df = history_df
             st.session_state.mse = mse
             st.session_state.mae = mae
@@ -1003,6 +939,7 @@ python predict.py
             st.session_state.r2 = r2
             st.session_state.mape = mape
             st.session_state.zip_data = zip_data
+
             st.session_state.trained_model_ready = True
             st.session_state.prediction_result = None
 
@@ -1030,6 +967,7 @@ python predict.py
             mime="application/zip"
         )
 
+
 # =========================================================
 # DEPLOY MODEL
 # =========================================================
@@ -1050,14 +988,9 @@ if menu == "Deploy Model":
         key="deploy_data_uploader"
     )
 
-    # =============================================
-    # SAVE MODEL ZIP TO SESSION STATE
-    # =============================================
-
     if uploaded_zip is not None:
 
         temp_dir = tempfile.mkdtemp()
-
         zip_path = os.path.join(temp_dir, "model_package.zip")
 
         with open(zip_path, "wb") as f:
@@ -1080,10 +1013,6 @@ if menu == "Deploy Model":
 
         st.session_state.deploy_model_uploaded = True
 
-    # =============================================
-    # SAVE PREDICTION DATA TO SESSION STATE
-    # =============================================
-
     if uploaded_data is not None:
 
         if uploaded_data.name.endswith(".csv"):
@@ -1092,10 +1021,6 @@ if menu == "Deploy Model":
             pred_df = pd.read_excel(uploaded_data)
 
         st.session_state.deploy_prediction_df = pred_df
-
-    # =============================================
-    # SHOW DEPLOY PAGE CONTENT
-    # =============================================
 
     if (
         st.session_state.deploy_model_uploaded
@@ -1112,16 +1037,8 @@ if menu == "Deploy Model":
         output_vars_model = metadata["output_variables"]
         hidden_layers = metadata["hidden_layers"]
 
-        # =============================================
-        # DATA PREVIEW
-        # =============================================
-
         st.subheader("Prediction Data Preview")
         st.dataframe(pred_df.head())
-
-        # =============================================
-        # MODEL INFORMATION
-        # =============================================
 
         st.subheader("Model Information")
 
@@ -1173,10 +1090,6 @@ if menu == "Deploy Model":
             </div>
             """, unsafe_allow_html=True)
 
-        # =============================================
-        # SELECT INPUT COLUMNS
-        # =============================================
-
         st.subheader("Select Input Data Columns")
 
         data_columns = pred_df.columns.tolist()
@@ -1187,6 +1100,7 @@ if menu == "Deploy Model":
         ]
 
         if len(st.session_state.deploy_selected_input_cols) > 0:
+
             default_selected_cols = [
                 col for col in st.session_state.deploy_selected_input_cols
                 if col in data_columns
@@ -1200,9 +1114,7 @@ if menu == "Deploy Model":
                 default=default_selected_cols
             )
 
-            apply_deploy_selection = st.form_submit_button(
-                "Apply Selection"
-            )
+            apply_deploy_selection = st.form_submit_button("Apply Selection")
 
         if apply_deploy_selection:
 
@@ -1216,37 +1128,34 @@ if menu == "Deploy Model":
         if len(selected_input_cols) != len(input_vars_model):
 
             st.warning(
-                f"Model have {len(input_vars_model)} inputs. "
-                f"Currently you have select {len(selected_input_cols)} coloums."
+                f"Model has {len(input_vars_model)} inputs. "
+                f"Currently you have selected {len(selected_input_cols)} columns."
             )
 
-        # =============================================
-        # RUN PREDICTION
-        # =============================================
-
         if st.button("Run Prediction"):
+
             selected_input_cols = st.session_state.deploy_selected_input_cols
+
             if len(selected_input_cols) != len(input_vars_model):
 
                 st.error(
                     "The number of input columns selected must be equal to the number of model inputs."
                 )
+
                 st.stop()
 
             X_new = pred_df[selected_input_cols].values
             X_new_scaled = scaler_x.transform(X_new)
+
             y_pred_scaled = model.predict(X_new_scaled)
             y_pred = scaler_y.inverse_transform(y_pred_scaled)
+
             result_df = pred_df.copy()
 
             for i, output_name in enumerate(output_vars_model):
                 result_df[f"Predicted_{output_name}"] = y_pred[:, i]
 
             st.session_state.deploy_result_df = result_df
-            
-        # =============================================
-        # SHOW PREDICTION RESULT
-        # =============================================
 
         if st.session_state.deploy_result_df is not None:
 
@@ -1278,9 +1187,7 @@ if menu == "Deploy Model":
 
     else:
 
-        st.info(
-            "Upload the Model Package ZIP and prediction data first."
-        )
+        st.info("Upload the Model Package ZIP and prediction data first.")
 
 
 # =========================================================
@@ -1295,7 +1202,7 @@ if menu == "How to Use":
         ("Upload Dataset", "Upload the dataset file in CSV or XLSX format."),
         ("Select Variables", "Select input and output variables from the dataset."),
         ("Configure Hidden Layers", "Specify the number of hidden layers and nodes in each layer."),
-        ("Train Model", "Click the Train Model button to start ANN training."),
+        ("Train Model", "Click the Train Now button to start ANN training."),
         ("Download Model ZIP", "Download the ZIP file of the trained model.")
     ]
 
@@ -1316,11 +1223,11 @@ if menu == "How to Use":
     st.subheader("How to Deploy")
 
     deploy_steps = [
-        ("Upload Model ZIP", "Upload model package ZIP hasil training."),
-        ("Upload Prediction Data", "Upload data baru dalam format CSV atau XLSX."),
-        ("Select Input Columns", "Pilih kolom input yang sesuai dengan struktur model."),
-        ("Run Prediction", "Klik tombol Run Prediction untuk menghasilkan prediksi."),
-        ("Download Result", "Download hasil prediksi dalam format CSV.")
+        ("Upload Model ZIP", "Upload the trained model package ZIP."),
+        ("Upload Prediction Data", "Upload new data in CSV or XLSX format."),
+        ("Select Input Columns", "Select input columns that match the model structure."),
+        ("Run Prediction", "Click Run Prediction to generate predictions."),
+        ("Download Result", "Download prediction results in Excel format.")
     ]
 
     for i, (title, desc) in enumerate(deploy_steps, start=1):
@@ -1334,5 +1241,3 @@ if menu == "How to Use":
             f'<div class="step-desc">{desc}</div>',
             unsafe_allow_html=True
         )
-
-    st.markdown("<br>", unsafe_allow_html=True)
