@@ -245,13 +245,13 @@ li[aria-selected="true"] {
 }
 
 /* =========================================================
-REMOVE FILE PREVIEW BOX
+REMOVE FILE PREVIEW CARD
 ========================================================= */
 
-/* Container file preview */
+/* Outer uploaded file container */
 [data-testid="stFileUploaderFile"] {
 
-    background: transparent !important;
+    background-color: transparent !important;
 
     border: none !important;
 
@@ -259,10 +259,10 @@ REMOVE FILE PREVIEW BOX
 
     padding: 0px !important;
 
-    margin-top: 8px !important;
+    margin: 0px !important;
 }
 
-/* Inner preview box */
+/* Inner container */
 [data-testid="stFileUploaderFileData"] {
 
     background: transparent !important;
@@ -272,18 +272,44 @@ REMOVE FILE PREVIEW BOX
     padding: 0px !important;
 }
 
-/* Remove hover effect */
-[data-testid="stFileUploaderFile"]:hover {
+/* Entire file row */
+[data-testid="stFileUploadDropzone"] + div {
 
     background: transparent !important;
+
+    border: none !important;
+
+    box-shadow: none !important;
 }
 
-/* File name */
+/* Remove blue card */
+section[data-testid="stFileUploader"] ul {
+
+    background: transparent !important;
+
+    border: none !important;
+
+    padding: 0px !important;
+
+    margin-top: 10px !important;
+}
+
+/* Each list item */
+section[data-testid="stFileUploader"] li {
+
+    background: transparent !important;
+
+    border: none !important;
+
+    box-shadow: none !important;
+}
+
+/* Filename */
 [data-testid="stFileUploaderFileName"] {
 
     color: white !important;
 
-    font-size: 16px !important;
+    font-size: 15px !important;
 
     font-weight: 600 !important;
 }
@@ -292,17 +318,9 @@ REMOVE FILE PREVIEW BOX
 [data-testid="stFileUploaderFileSize"] {
 
     color: #9CA3AF !important;
-
-    font-size: 14px !important;
 }
 
-/* Remove outer border */
-[data-testid="stFileUploader"] section {
-
-    border: none !important;
-}
-
-/* Close button */
+/* Delete button */
 [data-testid="stFileUploaderDeleteBtn"] {
 
     background: transparent !important;
