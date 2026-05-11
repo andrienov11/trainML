@@ -51,9 +51,11 @@ st.markdown("""
 }
 
 .block-container {
+    max-width: 1100px;
     padding-top: 4rem !important;
-    padding-left: 3rem;
-    padding-right: 3rem;
+    padding-left: 4rem !important;
+    padding-right: 4rem !important;
+    padding-bottom: 2rem !important;
 }
 
 [data-testid="stSidebar"] {
