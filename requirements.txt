@@ -8,4 +8,3 @@ matplotlib
 openpyxl
 joblib
 h5py
-io
