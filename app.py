@@ -608,7 +608,6 @@ if menu == "Train Model":
             st.session_state.dataset_df = df
             st.session_state.dataset_name = uploaded_file.name
     
-        st.success("Dataset loaded successfully")
 
     if st.session_state.dataset_df is not None:
 
