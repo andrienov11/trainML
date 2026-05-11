@@ -1004,7 +1004,7 @@ python predict.py
         st.subheader("Download Model")
 
         st.download_button(
-            label="Download Model Package ZIP",
+            label="Download Model Package",
             data=st.session_state.zip_data,
             file_name="model_package.zip",
             mime="application/zip",
@@ -1158,7 +1158,7 @@ if menu == "Deploy Model":
                 default=default_selected_cols
             )
 
-            apply_deploy_selection = st.form_submit_button("Apply Selection")
+            apply_deploy_selection = st.form_submit_button("Apply Selection", use_container_width=True)
 
         if apply_deploy_selection:
 
@@ -1176,7 +1176,9 @@ if menu == "Deploy Model":
                 f"Currently you have selected {len(selected_input_cols)} columns."
             )
 
-        if st.button("Run Prediction"):
+        Predict_model = st.button("Run Prediction", use_container_width=True)
+        
+        if Predict_model:
 
             selected_input_cols = st.session_state.deploy_selected_input_cols
 
@@ -1226,7 +1228,8 @@ if menu == "Deploy Model":
                 label="Download Prediction Result",
                 data=excel_buffer,
                 file_name="prediction_result.xlsx",
-                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                use_container_width=True
             )
 
     else:
