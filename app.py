@@ -740,10 +740,7 @@ if menu == "Train Model":
                 len(st.session_state.output_cols)
             )
 
-        train_clicked = st.button(
-            "Train Now",
-            use_container_width=False
-        )
+        train_clicked = st.button("Train Now",use_container_width=True)
         
         if train_clicked:
 
