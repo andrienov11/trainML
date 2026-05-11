@@ -33,12 +33,25 @@ st.set_page_config(
 st.markdown("""
 <style>
 
+
+.main-title {
+    font-size: 44px !important;
+    font-weight: 800 !important;
+    color: #2563EB !important;
+    margin-top: 30px !important;
+    margin-bottom: 8px !important;
+    line-height: 1.2 !important;
+}
+
+.subtitle {
+    font-size: 18px !important;
+    color: #9CA3AF !important;
+    margin-bottom: 35px !important;
+    line-height: 1.5 !important;
+}
+
 .block-container {
-    max-width: 1100px;
-    padding-top: 2rem;
-    padding-left: 4rem;
-    padding-right: 4rem;
-    padding-bottom: 2rem;
+    padding-top: 3rem !important;
 }
 
 [data-testid="stSidebar"] {
