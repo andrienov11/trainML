@@ -328,6 +328,9 @@ section[data-testid="stFileUploader"] li {
     border: none !important;
 }
 
+section[data-testid="stFileUploader"] div {
+    background: transparent !important;
+}
 
 </style>
 """, unsafe_allow_html=True)
