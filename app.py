@@ -244,6 +244,73 @@ li[aria-selected="true"] {
     font-weight: bold !important;
 }
 
+/* =========================================================
+REMOVE FILE PREVIEW BOX
+========================================================= */
+
+/* Container file preview */
+[data-testid="stFileUploaderFile"] {
+
+    background: transparent !important;
+
+    border: none !important;
+
+    box-shadow: none !important;
+
+    padding: 0px !important;
+
+    margin-top: 8px !important;
+}
+
+/* Inner preview box */
+[data-testid="stFileUploaderFileData"] {
+
+    background: transparent !important;
+
+    border: none !important;
+
+    padding: 0px !important;
+}
+
+/* Remove hover effect */
+[data-testid="stFileUploaderFile"]:hover {
+
+    background: transparent !important;
+}
+
+/* File name */
+[data-testid="stFileUploaderFileName"] {
+
+    color: white !important;
+
+    font-size: 16px !important;
+
+    font-weight: 600 !important;
+}
+
+/* File size */
+[data-testid="stFileUploaderFileSize"] {
+
+    color: #9CA3AF !important;
+
+    font-size: 14px !important;
+}
+
+/* Remove outer border */
+[data-testid="stFileUploader"] section {
+
+    border: none !important;
+}
+
+/* Close button */
+[data-testid="stFileUploaderDeleteBtn"] {
+
+    background: transparent !important;
+
+    border: none !important;
+}
+
+
 </style>
 """, unsafe_allow_html=True)
 
