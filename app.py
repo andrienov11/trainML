@@ -21,7 +21,7 @@ from tensorflow.keras.layers import Dense
 # =========================================================
 
 st.set_page_config(
-    page_title="How to Train Your Machine Learning?",
+    page_title="Novandri",
     layout="wide"
 )
 
@@ -330,7 +330,7 @@ menu = st.session_state.menu
 # =========================================================
 
 st.markdown(
-    '<div class="main-title">How to Train Your Machine Learning?</div>',
+    '<div class="main-title">Novandri - ML Development Tool</div>',
     unsafe_allow_html=True
 )
 
