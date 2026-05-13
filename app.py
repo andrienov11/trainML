@@ -21,7 +21,7 @@ from tensorflow.keras.layers import Dense
 # =========================================================
 
 st.set_page_config(
-    page_title="Novandri",
+    page_title="Novandri - ML Development Tool",
     layout="wide"
 )
 
@@ -33,29 +33,12 @@ st.set_page_config(
 st.markdown("""
 <style>
 
-
-.main-title {
-    font-size: 44px !important;
-    font-weight: 800 !important;
-    color: #2563EB !important;
-    margin-top: 30px !important;
-    margin-bottom: 8px !important;
-    line-height: 1.2 !important;
-}
-
-.subtitle {
-    font-size: 18px !important;
-    color: #9CA3AF !important;
-    margin-bottom: 35px !important;
-    line-height: 1.5 !important;
-}
-
 .block-container {
     max-width: 1100px;
-    padding-top: 2rem !important;
-    padding-left: 2rem !important;
-    padding-right: 2rem !important;
-    padding-bottom: 2rem !important;
+    padding-top: 3rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-bottom: 2rem;
 }
 
 [data-testid="stSidebar"] {
@@ -71,65 +54,53 @@ st.markdown("""
     margin-bottom: 40px;
 }
 
-/* Sidebar button wrapper */
 [data-testid="stSidebar"] div.stButton {
     display: flex !important;
     justify-content: center !important;
     width: 100% !important;
 }
 
-/* Sidebar button */
 [data-testid="stSidebar"] div.stButton > button {
     width: 85% !important;
     min-width: 180px !important;
     height: 64px !important;
-
     margin-left: auto !important;
     margin-right: auto !important;
     margin-bottom: 18px !important;
-
-    width: 320px !important;
-    height: 60px !important;
-
     border-radius: 18px !important;
     border: none !important;
-
     background: linear-gradient(135deg, #16213E, #1E3A8A) !important;
     color: white !important;
-
     font-size: 16px !important;
     font-weight: 700 !important;
-
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-
     text-align: center !important;
     white-space: nowrap !important;
-
     box-shadow: 0px 4px 15px rgba(0,0,0,0.3) !important;
 }
 
-/* Hover */
 [data-testid="stSidebar"] div.stButton > button:hover {
     background: linear-gradient(135deg, #2563EB, #3B82F6) !important;
     transform: translateY(-3px);
     color: white !important;
 }
 
-/* Sidebar title */
-.sidebar-title {
-    font-size: 34px;
-    font-weight: bold;
-    color: white;
-    text-align: center;
-    margin-bottom: 40px;
+.main-title {
+    font-size: 44px !important;
+    font-weight: 800 !important;
+    color: #2563EB !important;
+    margin-top: 30px !important;
+    margin-bottom: 8px !important;
+    line-height: 1.2 !important;
 }
 
 .subtitle {
-    font-size: 18px;
-    color: #9CA3AF;
-    margin-bottom: 25px;
+    font-size: 18px !important;
+    color: #9CA3AF !important;
+    margin-bottom: 35px !important;
+    line-height: 1.5 !important;
 }
 
 .info-card {
@@ -189,39 +160,11 @@ st.markdown("""
     line-height: 1.7;
 }
 
-/* File uploader */
-[data-testid="stFileUploaderFile"] {
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-    padding: 0px !important;
-}
-
-[data-testid="stFileUploader"] section {
-    border: none !important;
-}
-
-[data-testid="stFileUploaderFileData"] {
-    background: transparent !important;
-    border: none !important;
-}
-
-[data-testid="stFileUploaderFile"]:hover {
-    background: transparent !important;
-}
-
-[data-testid="stFileUploaderFileName"] {
-    color: white !important;
-    font-weight: 500 !important;
-}
-
 /* Dropdown popup */
 ul {
     background-color: #192e47 !important;
     border-radius: 12px !important;
     border: 1px solid #CBD5E1 !important;
-    padding-top: 5px !important;
-    padding-bottom: 5px !important;
 }
 
 li {
@@ -229,8 +172,6 @@ li {
     color: white !important;
     font-size: 16px !important;
     font-weight: 500 !important;
-    padding-top: 10px !important;
-    padding-bottom: 10px !important;
 }
 
 li:hover {
@@ -256,29 +197,26 @@ default_states = {
     "menu": "Train Model",
     "dataset_df": None,
     "dataset_name": None,
-
     "trained_model_ready": False,
     "prediction_result": None,
-
     "model": None,
     "scaler_x": None,
     "scaler_y": None,
-
     "input_cols": [],
     "output_cols": [],
     "hidden_layers": [16, 16],
     "activation_function": "relu",
     "epochs": 100,
     "test_size": 0.2,
-
     "history_df": None,
     "mse": None,
     "mae": None,
     "rmse": None,
     "r2": None,
     "mape": None,
+    "y_test_actual": None,
+    "y_test_pred": None,
     "zip_data": None,
-
     "deploy_model_uploaded": False,
     "deploy_prediction_df": None,
     "deploy_result_df": None,
@@ -297,7 +235,6 @@ for key, value in default_states.items():
 # =========================================================
 # SIDEBAR
 # =========================================================
-
 
 with st.sidebar:
 
@@ -527,6 +464,53 @@ def show_training_graph():
         )
 
 
+def show_deep_analysis():
+
+    if (
+        st.session_state.y_test_actual is not None
+        and st.session_state.y_test_pred is not None
+    ):
+
+        st.subheader("Deep Model Performance Analysis")
+
+        y_actual = st.session_state.y_test_actual
+        y_pred = st.session_state.y_test_pred
+
+        analysis_df = pd.DataFrame({
+            "Actual": y_actual.flatten(),
+            "Prediction": y_pred.flatten(),
+            "Residual": (y_actual - y_pred).flatten(),
+            "Absolute Error": np.abs(y_actual - y_pred).flatten()
+        })
+
+        st.write("Actual vs Prediction")
+        st.line_chart(
+            analysis_df[["Actual", "Prediction"]]
+        )
+
+        st.write("Scatter Plot: Actual vs Prediction")
+        st.scatter_chart(
+            analysis_df,
+            x="Actual",
+            y="Prediction"
+        )
+
+        st.write("Residual Error")
+        st.line_chart(
+            analysis_df["Residual"]
+        )
+
+        st.write("Absolute Error")
+        st.line_chart(
+            analysis_df["Absolute Error"]
+        )
+
+        st.write("Statistical Summary")
+        st.dataframe(
+            analysis_df.describe()
+        )
+
+
 def show_trained_model_test():
 
     if st.session_state.trained_model_ready:
@@ -550,9 +534,7 @@ def show_trained_model_test():
 
                 test_inputs.append(value)
 
-        predict_clicked = st.button("Predict Now", use_container_width=True)
-
-        if predict_clicked:
+        if st.button("Predict"):
 
             X_user = np.array([test_inputs])
             X_scaled_user = st.session_state.scaler_x.transform(X_user)
@@ -597,17 +579,16 @@ if menu == "Train Model":
     )
 
     if uploaded_file is not None:
-    
+
         with st.spinner("Loading dataset..."):
-    
+
             if uploaded_file.name.endswith(".csv"):
                 df = pd.read_csv(uploaded_file)
             else:
                 df = pd.read_excel(uploaded_file)
-    
+
             st.session_state.dataset_df = df
             st.session_state.dataset_name = uploaded_file.name
-    
 
     if st.session_state.dataset_df is not None:
 
@@ -648,8 +629,8 @@ if menu == "Train Model":
                 default=valid_output_defaults
             )
 
-            apply_selection = st.form_submit_button("Apply Selection", use_container_width=True)
-            
+            apply_selection = st.form_submit_button("Apply Selection")
+
         if apply_selection:
 
             st.session_state.input_cols = input_cols_temp
@@ -745,8 +726,11 @@ if menu == "Train Model":
                 len(st.session_state.output_cols)
             )
 
-        train_clicked = st.button("Train Now", use_container_width=True)
-        
+        train_clicked = st.button(
+            "Train Now",
+            use_container_width=True
+        )
+
         if train_clicked:
 
             if len(st.session_state.input_cols) == 0:
@@ -972,20 +956,19 @@ python predict.py
             st.session_state.model = model
             st.session_state.scaler_x = scaler_x
             st.session_state.scaler_y = scaler_y
-
             st.session_state.hidden_layers = hidden_layers
             st.session_state.activation_function = activation_function
             st.session_state.epochs = epochs
             st.session_state.test_size = test_size
-
             st.session_state.history_df = history_df
             st.session_state.mse = mse
             st.session_state.mae = mae
             st.session_state.rmse = rmse
             st.session_state.r2 = r2
             st.session_state.mape = mape
+            st.session_state.y_test_actual = y_test
+            st.session_state.y_test_pred = y_pred
             st.session_state.zip_data = zip_data
-
             st.session_state.trained_model_ready = True
             st.session_state.prediction_result = None
 
@@ -1002,16 +985,17 @@ python predict.py
 
         show_evaluation()
 
+        show_deep_analysis()
+
         show_trained_model_test()
 
         st.subheader("Download Model")
 
         st.download_button(
-            label="Download Model Package",
+            label="Download Model Package ZIP",
             data=st.session_state.zip_data,
             file_name="model_package.zip",
-            mime="application/zip",
-            use_container_width=True
+            mime="application/zip"
         )
 
 
@@ -1161,7 +1145,7 @@ if menu == "Deploy Model":
                 default=default_selected_cols
             )
 
-            apply_deploy_selection = st.form_submit_button("Apply Selection", use_container_width=True)
+            apply_deploy_selection = st.form_submit_button("Apply Selection")
 
         if apply_deploy_selection:
 
@@ -1179,9 +1163,7 @@ if menu == "Deploy Model":
                 f"Currently you have selected {len(selected_input_cols)} columns."
             )
 
-        Predict_model = st.button("Run Prediction", use_container_width=True)
-        
-        if Predict_model:
+        if st.button("Run Prediction"):
 
             selected_input_cols = st.session_state.deploy_selected_input_cols
 
@@ -1231,13 +1213,12 @@ if menu == "Deploy Model":
                 label="Download Prediction Result",
                 data=excel_buffer,
                 file_name="prediction_result.xlsx",
-                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                use_container_width=True
+                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
             )
 
     else:
 
-        st.info("Upload the Model Package ZIP and prediction data.")
+        st.info("Upload the Model Package ZIP and prediction data first.")
 
 
 # =========================================================
