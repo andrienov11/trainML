@@ -317,18 +317,27 @@ def show_static_line_chart(df, columns, title=""):
         font=dict(color="white"),
 
         margin=dict(
-            l=20,
-            r=20,
-            t=80,
-            b=60
+            l=1,
+            r=1,
+            t=100,
+            b=100
         ),
 
         legend=dict(
+
             orientation="h",
-            yanchor="bottom",
-            y=-0.3,
+
+            yanchor="top",
+
+            y=-0.25,
+
             xanchor="center",
-            x=0.5
+
+            x=0.5,
+
+            font=dict(
+                size=12
+            )
         ),
 
         xaxis=dict(
@@ -366,7 +375,7 @@ def show_static_scatter_chart(df, x_col, y_col, title=""):
         plot_bgcolor="#0E1117",
         paper_bgcolor="#0E1117",
         font=dict(color="white"),
-        margin=dict(l=20, r=20, t=40, b=20),
+        margin=dict(l=1, r=1, t=100, b=100),
         xaxis=dict(
             title=x_col,
             fixedrange=True
@@ -587,7 +596,6 @@ def show_deep_analysis():
             "Absolute Error": np.abs(y_actual - y_pred).flatten()
         })
 
-        st.write("Actual vs Prediction")
 
         show_static_line_chart(
             analysis_df,
@@ -595,7 +603,6 @@ def show_deep_analysis():
             "Actual vs Prediction"
         )
 
-        st.write("Scatter Plot: Actual vs Prediction")
 
         show_static_scatter_chart(
             analysis_df,
@@ -604,7 +611,6 @@ def show_deep_analysis():
             "Actual vs Prediction Scatter Plot"
         )
 
-        st.write("Residual Error")
 
         show_static_line_chart(
             analysis_df,
@@ -612,7 +618,6 @@ def show_deep_analysis():
             "Residual Error"
         )
 
-        st.write("Absolute Error")
 
         show_static_line_chart(
             analysis_df,
