@@ -976,14 +976,46 @@ if menu == "Train Model":
                 )
 
                 fig_realtime.update_layout(
+
                     title="Realtime Training Loss",
                     dragmode=False,
                     plot_bgcolor="#0E1117",
                     paper_bgcolor="#0E1117",
-                    font=dict(color="white"),
-                    margin=dict(l=20, r=20, t=40, b=20),
-                    xaxis=dict(fixedrange=True),
-                    yaxis=dict(fixedrange=True)
+                    font=dict(
+                        color="white",
+                        size=12
+                    ),
+
+                    height=500,
+                    margin=dict(
+                        l=1,
+                        r=1,
+                        t=100,
+                        b=120
+                    ),
+
+                    legend=dict(
+                        orientation="h",
+                        yanchor="top",
+                        y=-0.25,
+                        xanchor="center",
+                        x=0.5,
+                        font=dict(
+                            size=11
+                        )
+                    ),
+
+                    legend_tracegroupgap=0,
+
+                    xaxis=dict(
+                        fixedrange=True,
+                        automargin=True
+                    ),
+
+                    yaxis=dict(
+                        fixedrange=True,
+                        automargin=True
+                    )
                 )
 
                 realtime_chart.plotly_chart(
