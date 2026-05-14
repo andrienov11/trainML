@@ -281,6 +281,81 @@ st.markdown(
 # FUNCTIONS
 # =========================================================
 
+PLOTLY_STATIC_CONFIG = {
+    "scrollZoom": False,
+    "doubleClick": False,
+    "displayModeBar": False,
+    "staticPlot": True
+}
+
+
+def show_static_line_chart(df, columns, title=""):
+
+    fig = go.Figure()
+
+    for col in columns:
+        fig.add_trace(
+            go.Scatter(
+                y=df[col],
+                mode="lines",
+                name=col
+            )
+        )
+
+    fig.update_layout(
+        title=title,
+        dragmode=False,
+        plot_bgcolor="#0E1117",
+        paper_bgcolor="#0E1117",
+        font=dict(color="white"),
+        margin=dict(l=20, r=20, t=40, b=20),
+        xaxis=dict(fixedrange=True),
+        yaxis=dict(fixedrange=True)
+    )
+
+    st.plotly_chart(
+        fig,
+        use_container_width=True,
+        config=PLOTLY_STATIC_CONFIG
+    )
+
+
+def show_static_scatter_chart(df, x_col, y_col, title=""):
+
+    fig = go.Figure()
+
+    fig.add_trace(
+        go.Scatter(
+            x=df[x_col],
+            y=df[y_col],
+            mode="markers",
+            name=f"{x_col} vs {y_col}"
+        )
+    )
+
+    fig.update_layout(
+        title=title,
+        dragmode=False,
+        plot_bgcolor="#0E1117",
+        paper_bgcolor="#0E1117",
+        font=dict(color="white"),
+        margin=dict(l=20, r=20, t=40, b=20),
+        xaxis=dict(
+            title=x_col,
+            fixedrange=True
+        ),
+        yaxis=dict(
+            title=y_col,
+            fixedrange=True
+        )
+    )
+
+    st.plotly_chart(
+        fig,
+        use_container_width=True,
+        config=PLOTLY_STATIC_CONFIG
+    )
+
 def visualize_ann(input_nodes, hidden_layers, output_nodes):
 
     layers = [input_nodes, *hidden_layers, output_nodes]
@@ -459,8 +534,10 @@ def show_training_graph():
 
         st.subheader("Training Graph")
 
-        st.line_chart(
-            st.session_state.history_df[["loss", "val_loss"]]
+        show_static_line_chart(
+            st.session_state.history_df,
+            ["loss", "val_loss"],
+            "Training Loss vs Validation Loss"
         )
 
 
@@ -484,28 +561,40 @@ def show_deep_analysis():
         })
 
         st.write("Actual vs Prediction")
-        st.line_chart(
-            analysis_df[["Actual", "Prediction"]]
+
+        show_static_line_chart(
+            analysis_df,
+            ["Actual", "Prediction"],
+            "Actual vs Prediction"
         )
 
         st.write("Scatter Plot: Actual vs Prediction")
-        st.scatter_chart(
+
+        show_static_scatter_chart(
             analysis_df,
-            x="Actual",
-            y="Prediction"
+            "Actual",
+            "Prediction",
+            "Actual vs Prediction Scatter Plot"
         )
 
         st.write("Residual Error")
-        st.line_chart(
-            analysis_df["Residual"]
+
+        show_static_line_chart(
+            analysis_df,
+            ["Residual"],
+            "Residual Error"
         )
 
         st.write("Absolute Error")
-        st.line_chart(
-            analysis_df["Absolute Error"]
+
+        show_static_line_chart(
+            analysis_df,
+            ["Absolute Error"],
+            "Absolute Error"
         )
 
         st.write("Statistical Summary")
+
         st.dataframe(
             analysis_df.describe()
         )
@@ -836,8 +925,39 @@ if menu == "Train Model":
 
                 history_df = pd.DataFrame(history_data)
 
-                realtime_chart.line_chart(
-                    history_df[["loss", "val_loss"]]
+                fig_realtime = go.Figure()
+
+                fig_realtime.add_trace(
+                    go.Scatter(
+                        y=history_df["loss"],
+                        mode="lines",
+                        name="loss"
+                    )
+                )
+
+                fig_realtime.add_trace(
+                    go.Scatter(
+                        y=history_df["val_loss"],
+                        mode="lines",
+                        name="val_loss"
+                    )
+                )
+
+                fig_realtime.update_layout(
+                    title="Realtime Training Loss",
+                    dragmode=False,
+                    plot_bgcolor="#0E1117",
+                    paper_bgcolor="#0E1117",
+                    font=dict(color="white"),
+                    margin=dict(l=20, r=20, t=40, b=20),
+                    xaxis=dict(fixedrange=True),
+                    yaxis=dict(fixedrange=True)
+                )
+
+                realtime_chart.plotly_chart(
+                    fig_realtime,
+                    use_container_width=True,
+                    config=PLOTLY_STATIC_CONFIG
                 )
 
             history_df = pd.DataFrame(history_data)
