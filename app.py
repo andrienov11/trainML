@@ -33,6 +33,11 @@ st.set_page_config(
 st.markdown("""
 <style>
 
+.stApp {
+    background: #0e1117; !important;
+    color: #e0e0e0 !important;
+}
+
 .block-container {
     max-width: 1100px;
     padding-top: 3rem;
@@ -161,14 +166,10 @@ st.markdown("""
 }
 
 /* Dropdown popup */
-ul {
-    background-color: #192e47 !important;
-    border-radius: 12px !important;
-    border: 1px solid #CBD5E1 !important;
-}
+
 
 li {
-    background-color: #192e47 !important;
+    background-color: #0e1117 !important;
     color: white !important;
     font-size: 16px !important;
     font-weight: 500 !important;
@@ -294,6 +295,7 @@ def show_static_line_chart(df, columns, title=""):
     fig = go.Figure()
 
     for col in columns:
+
         fig.add_trace(
             go.Scatter(
                 y=df[col],
@@ -303,14 +305,39 @@ def show_static_line_chart(df, columns, title=""):
         )
 
     fig.update_layout(
+
         title=title,
+
         dragmode=False,
+
         plot_bgcolor="#0E1117",
+
         paper_bgcolor="#0E1117",
+
         font=dict(color="white"),
-        margin=dict(l=20, r=20, t=40, b=20),
-        xaxis=dict(fixedrange=True),
-        yaxis=dict(fixedrange=True)
+
+        margin=dict(
+            l=20,
+            r=20,
+            t=80,
+            b=60
+        ),
+
+        legend=dict(
+            orientation="h",
+            yanchor="bottom",
+            y=-0.3,
+            xanchor="center",
+            x=0.5
+        ),
+
+        xaxis=dict(
+            fixedrange=True
+        ),
+
+        yaxis=dict(
+            fixedrange=True
+        )
     )
 
     st.plotly_chart(
