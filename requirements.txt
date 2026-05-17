@@ -8,3 +8,4 @@ matplotlib
 openpyxl
 joblib
 h5py
+Pillow
