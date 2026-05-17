@@ -7,6 +7,7 @@ import json
 import zipfile
 import joblib
 import plotly.graph_objects as go
+from PIL import Image
 
 from io import BytesIO
 from sklearn.model_selection import train_test_split
@@ -20,8 +21,10 @@ from tensorflow.keras.layers import Dense
 # PAGE CONFIG
 # =========================================================
 
+logo = Image.open("logo.png")
 st.set_page_config(
     page_title="Novandri - ML Development Tool",
+    page_icon=logo,
     layout="wide"
 )
 
