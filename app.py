@@ -43,9 +43,7 @@ st.set_page_config(
 st.markdown("""
 <style>
 
-* {
-    transition: all 0.3s ease !important;
-}
+
 
 .stApp {
     background: linear-gradient(135deg, #0a0e27 0%, #0f1942 50%, #0a0e27 100%) !important;
@@ -832,9 +830,9 @@ if menu == "Train Model":
                 hdf = pd.DataFrame(history_data)
                 fig = go.Figure()
                 fig.add_trace(go.Scatter(y=hdf["loss"],     mode="lines", name="loss", 
-                                        line=dict(shape="spline", smoothing=0.8, width=2.5)))
+                                        line=dict(width=2)))
                 fig.add_trace(go.Scatter(y=hdf["val_loss"], mode="lines", name="val_loss",
-                                        line=dict(shape="spline", smoothing=0.8, width=2.5)))
+                                        line=dict(width=2)))
                 fig.update_layout(
                     title="Realtime Training Loss", dragmode=False,
                     plot_bgcolor="rgba(255, 255, 255, 0.05)", paper_bgcolor="rgba(0, 0, 0, 0)",
@@ -842,8 +840,8 @@ if menu == "Train Model":
                     margin=dict(l=1, r=1, t=100, b=120),
                     legend=dict(orientation="h", yanchor="top", y=-0.25,
                                 xanchor="center", x=0.5),
-                    xaxis=dict(fixedrange=True, automargin=True, showgrid=False, zeroline=False),
-                    yaxis=dict(fixedrange=True, automargin=True, showgrid=False, zeroline=False),
+                    xaxis=dict(fixedrange=True, automargin=True, showgrid=True, zeroline=False),
+                    yaxis=dict(fixedrange=True, automargin=True, showgrid=True, zeroline=False),
                 )
                 realtime_chart.plotly_chart(fig, use_container_width=True,
                                             config=PLOTLY_STATIC_CONFIG)
