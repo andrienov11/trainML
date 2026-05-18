@@ -844,7 +844,6 @@ if menu == "Train Model":
                                 xanchor="center", x=0.5),
                     xaxis=dict(fixedrange=True, automargin=True, showgrid=False, zeroline=False),
                     yaxis=dict(fixedrange=True, automargin=True, showgrid=False, zeroline=False),
-                    transition=dict(duration=500, easing="cubic-in-out"),
                 )
                 realtime_chart.plotly_chart(fig, use_container_width=True,
                                             config=PLOTLY_STATIC_CONFIG)
